@@ -1,0 +1,15 @@
+<h1>All Advertisements <%= link_to "Create a New Ad", {controller: "advertisement", action: "new"}, class: "btn btn-primary" %></h1>
+
+ <% @advertisements.each do |ad| %>
+   <div class="panel panel-default">
+    <div class="panel-heading">
+      (<%= ad.id %>) <%= link_to ad.title, ad %>
+      <strong class="pull-right">
+        $<%= ad.price %>
+      </strong>
+    </div>
+    <div class="panel-body">
+      <%= ad.copy %>
+    </div>
+  </div>
+ <% end %>
