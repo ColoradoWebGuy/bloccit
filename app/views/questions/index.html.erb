@@ -1,0 +1,15 @@
+<h1>All Questions <%= link_to "Create a new Question", new_question_path, class: "btn btn-primary"%></h1>
+
+ <% @questions.each do |question| %>
+ <div class="media">
+   <div class="media-body">
+     <h4 class="media-heading">
+       <%= link_to "(#{question.id}) #{question.title}", question %>
+       <br />
+       <small>Resolved:
+         <span <%= question.resolved_css(question) %>><%= question.resolved %></span>
+       </small>
+    </h4>
+   </div>
+ </div>
+ <% end %>
