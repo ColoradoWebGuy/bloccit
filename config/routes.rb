@@ -2,7 +2,8 @@
 
   resources :topics do
      resources :posts, except: [:index]
-   end
+     resources :sponsored_posts, except: [:index, :destroy]
+  end
 
   get 'about' => 'welcome#about'
 
