@@ -46,4 +46,24 @@ RSpec.describe User, type: :model do
        expect(user_with_invalid_email_format).to_not be_valid
      end
    end
+
+   describe "before user's name saved" do
+     let(:user_all_lowercase_name) { User.new(name: "steven schulte", email: "user@bloccit.com") }
+     let(:user_all_uppercase_name) { User.new(name: "STEVEN SCHULTE", email: "user@bloccit.com") }
+     let(:user_name_already_proper) { User.new(name: "Steven Schulte", email: "user@bloccit.com") }
+
+
+     it "should have lowercase name changed" do
+       expect(user_all_lowercase_name.name).to eq("Steven Schulte")
+     end
+
+     it "should have uppercase name changed" do
+       expect(user_all_uppercase_name.name).to eq("Steven Schulte")
+     end
+
+     it "should still run on a proper name" do
+       expect(user_name_already_proper.name).to eq("Steven Schulte")
+     end
+
+   end
 end
