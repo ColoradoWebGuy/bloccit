@@ -48,9 +48,9 @@ RSpec.describe User, type: :model do
    end
 
    describe "before user's name saved" do
-     let(:user_all_lowercase_name) { User.new(name: "steven schulte", email: "user@bloccit.com") }
-     let(:user_all_uppercase_name) { User.new(name: "STEVEN SCHULTE", email: "user@bloccit.com") }
-     let(:user_name_already_proper) { User.new(name: "Steven Schulte", email: "user@bloccit.com") }
+     let(:user_all_lowercase_name) { User.create(name: "steven schulte", email: "user@bloccit.com", password: "fakePassword") }
+     let(:user_all_uppercase_name) { User.create(name: "STEVEN SCHULTE", email: "user@bloccit.com", password: "fakePassword") }
+     let(:user_name_already_proper) { User.create(name: "Steven Schulte", email: "user@bloccit.com", password: "fakePassword") }
 
 
      it "should have lowercase name changed" do

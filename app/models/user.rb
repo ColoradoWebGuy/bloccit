@@ -17,15 +17,17 @@ class User < ActiveRecord::Base
   has_secure_password
 
   def format_data
-      self.email = email.downcase if email.present?
+    self.email = email.downcase if email.present?
 
-      if name.present?
-        tempName = name.split(' ')
-        tempName.each { |i|
-          i = i.capitalize
-        }
-        self.name = tempName.join(' ')
-      end
+    if name.present?
+      tempName = name.split(' ')
+      tempName.each { |i|
+        i = i.capitalize!
+        p "name: #{i}"
+      }
+      self.name = tempName.join(' ')
+      p "name: #{self.name}"
+    end
   end
 
 end
