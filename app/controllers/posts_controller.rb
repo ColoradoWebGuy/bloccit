@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
 
+  before_action :require_sign_in, except: :show
+
   def show
     @post = Post.find(params[:id])
   end
-
 
   def new
     @topic = Topic.find(params[:topic_id])
@@ -13,12 +14,9 @@ class PostsController < ApplicationController
   # create is a POST action
   def create
     # Call Post.new to create a new instance of Post
-    @post = Post.new
-    @post.title = params[:post][:title]
-    @post.body = params[:post][:body]
     @topic = Topic.find(params[:topic_id])
-
-    @post.topic = @topic
+    @post = @topic.posts.build(post_params)
+    @post.user = current_user
 
     # If save is a success, Redirecting to @post will direct the user to the
     #  posts show view.
@@ -38,8 +36,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    @post.title = params[:post][:title]
-    @post.body = params[:post][:body]
+    @post.assign_attributes(post_params)
 
     if @post.save
       flash[:notice] = "Post was updated"
@@ -62,4 +59,10 @@ class PostsController < ApplicationController
      end
   end
 
+  # Any method defined below private, will be private.
+  private
+
+   def post_params
+     params.require(:post).permit(:title, :body)
+   end
 end #end of PostsController

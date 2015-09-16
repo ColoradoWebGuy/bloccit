@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :posts
 
   before_save :format_data
 
@@ -18,14 +19,6 @@ class User < ActiveRecord::Base
 
   def format_data
       self.email = email.downcase if email.present?
-
-      if name.present?
-        tempName = name.split(' ')
-        tempName.each { |i|
-          i = i.capitalize
-        }
-        self.name = tempName.join(' ')
-      end
   end
 
 end

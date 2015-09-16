@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
    let(:user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "password") }
 
+   # Shoulda tests for many posts
+   it { should have_many(:posts)}
+
    # Shoulda tests for name
    it { should validate_presence_of(:name) }
    it { should validate_length_of(:name).is_at_least(1) }
@@ -47,23 +50,4 @@ RSpec.describe User, type: :model do
      end
    end
 
-   describe "before user's name saved" do
-     let(:user_all_lowercase_name) { User.new(name: "steven schulte", email: "user@bloccit.com") }
-     let(:user_all_uppercase_name) { User.new(name: "STEVEN SCHULTE", email: "user@bloccit.com") }
-     let(:user_name_already_proper) { User.new(name: "Steven Schulte", email: "user@bloccit.com") }
-
-
-     it "should have lowercase name changed" do
-       expect(user_all_lowercase_name.name).to eq("Steven Schulte")
-     end
-
-     it "should have uppercase name changed" do
-       expect(user_all_uppercase_name.name).to eq("Steven Schulte")
-     end
-
-     it "should still run on a proper name" do
-       expect(user_name_already_proper.name).to eq("Steven Schulte")
-     end
-
-   end
 end
