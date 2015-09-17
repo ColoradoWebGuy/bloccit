@@ -33,6 +33,7 @@ include RandomData
  # Create Comments
  100.times do
    Comment.create!(
+     user: users.sample,
      post: posts.sample,
      body: RandomData.random_paragraph
    )
@@ -58,7 +59,7 @@ include RandomData
    email:    'member@example.com',
    password: 'helloworld'
  )
- 
+
  puts "Seed finished"
  puts "#{User.count} users created"
  puts "#{Topic.count} topics created"

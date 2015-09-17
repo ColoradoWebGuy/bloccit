@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :posts
+  has_many :comments
 
   before_save :format_data
   before_save { self.role ||= :member }
