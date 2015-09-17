@@ -8,4 +8,9 @@ module ApplicationHelper
      end
    end
 
+   def moderator?
+     # return true if current user is a moderator
+     current_user.moderator?
+   end
+
 end

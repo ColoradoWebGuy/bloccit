@@ -21,5 +21,5 @@ class User < ActiveRecord::Base
       self.email = email.downcase if email.present?
   end
 
-  enum role: [:member, :admin]
+  enum role: [:member, :admin, :moderator]
 end
