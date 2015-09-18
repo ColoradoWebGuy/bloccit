@@ -22,6 +22,7 @@ class PostsController < ApplicationController
     # If save is a success, Redirecting to @post will direct the user to the
     #  posts show view.
     if @post.save
+      @post.labels = Label.update_labels(params[:post][:labels])
       flash[:notice] = "Post was saved."
       redirect_to [@topic, @post]
     else
@@ -40,6 +41,7 @@ class PostsController < ApplicationController
     @post.assign_attributes(post_params)
 
     if @post.save
+      @post.labels = Label.update_labels(params[:post][:labels])
       flash[:notice] = "Post was updated"
       redirect_to [@post.topic, @post]
     else
