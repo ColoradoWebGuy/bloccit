@@ -14,7 +14,8 @@ include RandomData
  15.times do
    Topic.create!(
      name:         RandomData.random_sentence,
-     description:  RandomData.random_paragraph
+     description:  RandomData.random_paragraph,
+     rating:       Rating.update_rating(:PG)
    )
  end
  topics = Topic.all
@@ -25,7 +26,8 @@ include RandomData
      user:   users.sample,
      topic:  topics.sample,
      title:  RandomData.random_sentence,
-     body:   RandomData.random_paragraph
+     body:   RandomData.random_paragraph,
+     rating:       Rating.update_rating(:PG)
    )
  end
  posts = Post.all

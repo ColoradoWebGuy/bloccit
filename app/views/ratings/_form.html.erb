@@ -1,0 +1,4 @@
+<div class="form-group">
+  <%= f.label :rating %>
+  <%= f.select(:rating, options_for_select(['PG', 'PG13', 'R'], selected: rating ? rating.severity : 'PG' ), {}, {class: "form-control"}) %>
+</div>
