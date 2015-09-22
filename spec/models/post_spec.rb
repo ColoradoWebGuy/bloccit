@@ -33,11 +33,6 @@ RSpec.describe Post, type: :model do
    end
 
    describe "after_create callback" do
-      it "triggers create_vote after create calls" do
-        postCreated = Post.create!(topic: topic,title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)
-        expect(postCreated).to receive(:create_vote).at_least(:once)
-      end
-
       it "#create_vote should create a new vote record for the new post " do
         expect( post.votes.count ).to eq(1)
       end
