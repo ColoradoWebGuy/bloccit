@@ -18,10 +18,10 @@
        <div class="pull-right user-info">
          <% if current_user %>
             <span class="pull-right">
-              <img src="<%= avatar_url(current_user) %>" class="user_avatar img-responsive"/>
+              <%=link_to( image_tag(User.avatar_url(current_user, 48), class: "gravatar img-responsive"), user_path(current_user)) %>
             </span>
             <span class="user-text pull-right">
-              Hi, <%= current_user.name %>
+              Hi, <%= link_to current_user.name, user_path(current_user) %>
               <br />
               <%= link_to "Sign Out", session_path(current_user), method: :delete %>
             </span>
