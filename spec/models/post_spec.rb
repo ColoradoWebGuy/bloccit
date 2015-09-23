@@ -15,7 +15,7 @@ RSpec.describe Post, type: :model do
 
   it { should have_many(:votes) }
   it { should have_many(:favorites) }
-  
+
   it { should belong_to(:user) }
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:body) }
@@ -38,25 +38,21 @@ RSpec.describe Post, type: :model do
        3.times { post.votes.create!(value: 1) }
        2.times { post.votes.create!(value: -1) }
      end
-
      describe "#up_votes" do
        it "counts the number of votes with value = 1" do
          expect( post.up_votes ).to eq(3)
        end
      end
-
      describe "#down_votes" do
        it "counts the number of votes with value = -1" do
          expect( post.down_votes ).to eq(2)
        end
      end
-
      describe "#points" do
        it "returns the sum of all down and up votes" do
          expect( post.points ).to eq(1) # 3 - 2
        end
      end
-
      describe "#update_rank" do
        it "calculates the correct rank" do
          post.update_rank
@@ -75,7 +71,22 @@ RSpec.describe Post, type: :model do
          expect(post.rank).to eq (old_rank - 1)
        end
      end
+   end
 
+   describe "after_create" do
+     before do
+       @another_post = topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)
+     end
+
+     it "adds the user as a favorite to the post when created" do
+       expect(@another_post.favorites.count).to eq (1)
+       @another_post.save
+     end
+
+     it "sends an email to the user who have created the post" do
+       expect(FavoriteMailer).to receive(:new_post)
+       @another_post.save
+     end
    end
 
 end
