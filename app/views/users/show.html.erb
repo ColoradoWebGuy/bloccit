@@ -19,8 +19,12 @@
    </div>
  </div>
 
- <h2>Posts</h2>
+ <h2><%= user_has_posts? ? "Posts" : "#{@user.name} has not submitted any posts yet." %></h2>
  <%= render @user.posts %>
 
- <h2>Comments</h2>
+ <h2><%= user_has_comments? ? "Comments" : "#{@user.name} has not submitted any comments yet." %></h2>
  <%= render @user.comments %>
+
+ <hr />
+ <h2><%= user_has_favorites? ? "#{@user.name} #{pluralize(@user.favorites.count, 'favorite post')}:" : "#{@user.name} has no favorites yet." %></h2>
+ <%= render partial: 'favorites/show_user_favs', locals: { user: @user } %>

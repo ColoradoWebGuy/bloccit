@@ -1,0 +1,25 @@
+<div id="favs">
+  <% user.favorites.each { |fav| %>
+    <div class="row">
+       <div class="col-md-8">
+         <div class="media">
+           <% avatar_url = User.avatar_url(fav.post.user, 48) %>
+           <% unless avatar_url.nil? %>
+             <div class="media-left">
+                <%= image_tag avatar_url, class: 'gravatar media-object' %>
+             </div>
+           <% end %>
+           <div class="media-body" style="vertical-align:middle">
+             <h4 class="media-heading">
+               <%= link_to fav.post.title, topic_post_path(fav.post.topic, fav.post) %>
+               <br />
+               <small>
+                 <%= pluralize(fav.post.comments.count, "Comment") %> | <%= pluralize(fav.post.votes.count, "Vote") %>
+               </small>
+             </h4>
+           </div>
+         </div>
+       </div>
+     </div>
+  <% } %>
+</div>

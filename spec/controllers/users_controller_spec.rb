@@ -84,4 +84,14 @@ RSpec.describe UsersController, type: :controller do
      end
    end
 
+   describe "user profile" do
+     let(:factory_user) { create(:user) }
+
+     it "returns users favorites success" do
+       get :show, {id: factory_user.id}
+       expect(response).to render_template(partial: 'favorites/show_user_favs')
+     end
+
+   end
+
 end
