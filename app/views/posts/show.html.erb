@@ -36,15 +36,9 @@
      <% end %>
    </div>
    <div class="col-md-4">
-     <h3>
-       <%= pluralize(@post.points, 'point') %>
-       <div>
-         <small>
-           <%= pluralize(@post.up_votes, 'up vote') %>,
-           <%= pluralize(@post.down_votes, 'down vote') %>
-         </small>
-       </div>
-     </h3>
+     <div id="vote-sum">
+       <%= render partial: 'votes/vote_summary', locals: { post: @post } %>
+     </div>
      <% if current_user %>
        <%= render partial: 'favorites/favorite', locals: { post: @post } %>
      <% end %>

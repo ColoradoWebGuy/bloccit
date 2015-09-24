@@ -1,14 +1,24 @@
 class VotesController < ApplicationController
-  before_action :require_sign_in
+   before_action :require_sign_in
 
-  def up_vote
+   def up_vote
     update_vote(1)
-    redirect_to :back
-  end
 
-  def down_vote
+    respond_to do |format|
+      format.html
+      format.js
+    end
+    #redirect_to :back
+   end
+
+   def down_vote
      update_vote(-1)
-     redirect_to :back
+
+     respond_to do |format|
+       format.html
+       format.js
+     end
+     #redirect_to :back
    end
 
    private
@@ -18,8 +28,10 @@ class VotesController < ApplicationController
 
      if @vote
        @vote.update_attribute(:value, new_value)
+       flash[:notice] = "Vote saved successfully."
      else
        @vote = current_user.votes.create(value: new_value, post: @post)
+       flash[:error] = "Vote failed to save."
      end
    end
 end

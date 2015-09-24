@@ -1,0 +1,5 @@
+$('<%= "#post-#{@post.id}" %>').html("<%= escape_javascript(render partial: 'votes/voter', locals: { post: @post }) %>");
+
+$('<%= "#vote-#{@post.id} .post-points" %>').html("<strong><%= @post.points %></strong>");
+
+$('<%= "#vote-sum" %>').html("<%= escape_javascript(render partial: 'votes/vote_summary', locals: { post: @post }) %>");
