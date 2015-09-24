@@ -6,7 +6,12 @@
        <div class="media">
          <div class="media-body">
            <h4 class="media-heading">
-             <%= link_to topic.name, topic %>
+             <%= link_to topic.name, topic %><br />
+             <small>
+                <strong>
+                  <%= topic.public ? "Public" : "Private" %>
+                </strong>
+             </small>
            </h4>
            <small>
              <%= topic.description %>
