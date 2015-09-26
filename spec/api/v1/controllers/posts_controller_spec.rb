@@ -3,15 +3,16 @@ require 'rails_helper'
  RSpec.describe Api::V1::TopicsController, type: :controller do
    let(:my_user) { create(:user) }
    let(:my_topic) { create(:topic) }
+   let(:my_post) { create(:post, topic: my_topic, user: my_user) }
 
-   context "unauthenticated user" do
+    context "unauthenticated user" do
      it "GET index returns http success" do
        get :index
        expect(response).to have_http_status(:success)
      end
 
      it "GET show returns http success" do
-       get :show, id: my_topic.id, posts: my_topic.posts
+       get :show, topic_id: my_topic.id, id: my_post.id, comments: my_post.comments
        expect(response).to have_http_status(:success)
      end
    end
@@ -27,7 +28,7 @@ require 'rails_helper'
      end
 
      it "GET show returns http success" do
-       get :show, id: my_topic.id, posts: my_topic.posts
+       get :show, topic_id: my_topic.id, id: my_post.id, comments: my_post.comments
        expect(response).to have_http_status(:success)
      end
    end
