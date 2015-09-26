@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  before_create :generate_auth_token
+
   before_save :format_data
   before_save { self.role ||= :member }
 
@@ -33,5 +35,12 @@ class User < ActiveRecord::Base
   def self.avatar_url(user, size)
      gravatar_id = Digest::MD5::hexdigest(user.email).downcase
      "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
+   end
+
+   def generate_auth_token
+     loop do
+       self.auth_token = SecureRandom.base64(64)
+       break unless User.find_by(auth_token: auth_token)
+     end
    end
 end
